@@ -1,8 +1,7 @@
-// src/services/apiService.js
 
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080'; // Thay đổi port nếu cần
+const API_BASE_URL = 'http://localhost:8080';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -17,24 +16,17 @@ const handleError = (functionName, error) => {
 
 
 const processSearchResponse = (response) => {
-  // Trường hợp 1: API trả về một mảng trong thuộc tính 'hits'
-  // (Ví dụ: search by subject, target, time range...)
   if (Array.isArray(response.data?.hits)) {
-    return response.data.hits; // Lấy trực tiếp mảng này
+    return response.data.hits;
   }
 
-  // Trường hợp 2: API trả về một object sự kiện duy nhất (cho tìm kiếm theo ID)
-  // `response.data` chính là object event đó, nó không có thuộc tính 'hits'
   if (response.data && response.data.id) {
-    return [response.data]; // Trả về dưới dạng một mảng có 1 phần tử
+    return [response.data];
   }
 
-  // Nếu không rơi vào trường hợp nào, trả về mảng rỗng để tránh lỗi
   return [];
 };
 
-
-// --- CÁC HÀM TÌM KIẾM RIÊNG LẺ (Không cần thay đổi) ---
 
 export const searchByEventId = async (id) => {
     try {
@@ -86,9 +78,8 @@ export const searchByTimeRange = async (fromTime, toTime) => {
 };
 
 
-// --- HÀM THỐNG KÊ THEO THỜI GIAN (Giữ nguyên) ---
+// HÀM THỐNG KÊ THEO THỜI GIAN
 export const fetchTypeStatisticsByTime = async (params) => {
-    // ... (Giữ nguyên code của hàm này)
     try {
         const response = await apiClient.get('/search/v1/public/stats/types-by-time', { params });
         return response.data || { subjectTypes: [], targetTypes: [] };
