@@ -1,10 +1,8 @@
-// src/App.js
+
 import { useState } from 'react';
 import { Box, Tab, Tabs, Typography, CssBaseline, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-
-// Các đường dẫn import này bây giờ đã đúng
 import SingleSearchPage from './pages/SingleSearchPage';
 import NewStatsPage from './pages/NewStatsPage';
 
