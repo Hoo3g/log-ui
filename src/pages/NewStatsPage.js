@@ -1,11 +1,11 @@
-// src/pages/NewStatsPage.js
+
 import { useState } from 'react';
 import { Box, Paper, Typography, TextField, Button, Grid, CircularProgress, Alert } from '@mui/material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { fetchTypeStatisticsByTime } from '../services/apiService'; // Đổi tên hàm
+import { fetchTypeStatisticsByTime } from '../services/apiService';
 import dayjs from 'dayjs';
 
-// --- COMPONENT FORM ---
+// COMPONENT FORM
 const StatsForm = ({ onStatsFetch, loading }) => {
     const [fromTime, setFromTime] = useState('');
     const [toTime, setToTime] = useState('');
@@ -14,7 +14,7 @@ const StatsForm = ({ onStatsFetch, loading }) => {
         if (!fromTime || !toTime) return alert('Vui lòng chọn đủ khoảng thời gian');
         onStatsFetch({ fromTime: dayjs(fromTime).valueOf(), toTime: dayjs(toTime).valueOf() });
     };
-    return ( /* ... giữ nguyên JSX của StatsForm từ câu trả lời trước ... */
+    return (
         <Paper sx={{ p: 2, mb: 4 }}>
             <Typography variant="h6" gutterBottom>Thống kê sự kiện theo khoảng thời gian</Typography>
             <Grid container spacing={2} alignItems="center">
@@ -26,12 +26,12 @@ const StatsForm = ({ onStatsFetch, loading }) => {
     );
 };
 
-// --- COMPONENT BIỂU ĐỒ ---
+// COMPONENT BIỂU ĐỒ
 const StatsChart = ({ data }) => {
     const chartData = [];
     const allKeys = new Set([...Object.keys(data.subjectTypes), ...Object.keys(data.targetTypes)]);
     allKeys.forEach(key => { chartData.push({ name: key, 'Chủ thể (Subject)': data.subjectTypes[key] || 0, 'Đối tượng (Target)': data.targetTypes[key] || 0 }); });
-    return ( /* ... giữ nguyên JSX của StatsChart từ câu trả lời trước ... */
+    return (
         <Paper sx={{ p: 2, height: 500 }}>
              <Typography variant="h6" gutterBottom>Phân bổ theo Loại Chủ thể và Đối tượng</Typography>
             <ResponsiveContainer width="100%" height="90%"><BarChart data={chartData}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis /><Tooltip /><Legend /><Bar dataKey="Chủ thể (Subject)" fill="#8884d8" /><Bar dataKey="Đối tượng (Target)" fill="#82ca9d" /></BarChart></ResponsiveContainer>
@@ -39,7 +39,7 @@ const StatsChart = ({ data }) => {
     );
 };
 
-// --- COMPONENT TRANG CHÍNH ---
+// COMPONENT TRANG CHÍNH
 const NewStatsPage = () => {
     const [statsData, setStatsData] = useState(null);
     const [loading, setLoading] = useState(false);
