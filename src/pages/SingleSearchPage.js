@@ -1,10 +1,10 @@
-// src/pages/SingleSearchPage.js
+
 import { useState } from 'react';
 import { Box, Paper, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Button, Grid, CircularProgress, Alert, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import * as api from '../services/apiService'; // Import tất cả các hàm
+import * as api from '../services/apiService';
 import dayjs from 'dayjs';
 
-// ... (component EventTable giữ nguyên như cũ)
+
 const EventTable = ({ events }) => (
     <Box>
         <Typography variant="h6" gutterBottom>Kết quả tìm kiếm</Typography>
@@ -22,14 +22,13 @@ const EventTable = ({ events }) => (
 );
 
 
-// --- COMPONENT FORM ĐƯỢC CẬP NHẬT ---
+// COMPONENT FORM
 const SearchForm = ({ onSearch, loading }) => {
     const [searchType, setSearchType] = useState('fullText');
     const [formState, setFormState] = useState({ eventId: '', subjectType: '', subjectId: '', targetType: '', targetId: '', eventType: '', correlationId: '', searchText: '', fromTime: '', toTime: '' });
 
     const handleChange = (e) => setFormState({ ...formState, [e.target.name]: e.target.value });
 
-    // Logic submit giờ sẽ gọi các hàm API cụ thể
     const handleSubmit = (e) => {
         e.preventDefault();
         const { eventId, subjectType, subjectId, targetType, targetId, eventType, correlationId, searchText, fromTime, toTime } = formState;
@@ -48,7 +47,7 @@ const SearchForm = ({ onSearch, loading }) => {
         onSearch(searchPromise);
     };
 
-    const renderInputs = () => { /* ... giữ nguyên code renderInputs từ câu trả lời trước ... */ 
+    const renderInputs = () => {
         switch (searchType) {
             case 'eventId': return <TextField fullWidth name="eventId" label="Event ID" value={formState.eventId} onChange={handleChange} />;
             case 'fullText': return <TextField fullWidth name="searchText" label="Nội dung tìm kiếm" value={formState.searchText} onChange={handleChange} />;
@@ -61,7 +60,7 @@ const SearchForm = ({ onSearch, loading }) => {
         }
     };
 
-    return ( /* ... giữ nguyên JSX của SearchForm từ câu trả lời trước ... */
+    return (
         <Paper sx={{ p: 2, mb: 4 }}>
             <Typography variant="h6" gutterBottom>Tìm kiếm Event Log</Typography>
             <Grid container spacing={2} alignItems="center">
@@ -74,7 +73,6 @@ const SearchForm = ({ onSearch, loading }) => {
 };
 
 
-// --- COMPONENT TRANG CHÍNH ĐƯỢC CẬP NHẬT ---
 const SingleSearchPage = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
